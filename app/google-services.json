@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "548565794347",
+    "firebase_url": "https://card-ai-ab630.firebaseio.com",
+    "project_id": "card-ai-ab630",
+    "storage_bucket": "card-ai-ab630.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548565794347:android:ed63b2352e12007b04746e",
+        "android_client_info": {
+          "package_name": "xyz.codegeek.cardai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548565794347-dvo4mtmvmkbq73p7er5tpib3aa9ad0pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeL5zhMNrePqfNfQ51rDkKFpnNN6UvtKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548565794347-dvo4mtmvmkbq73p7er5tpib3aa9ad0pp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

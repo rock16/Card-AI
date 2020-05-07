@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/process_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ProcessFragment">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/view_finder"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ok_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:clickable="true"
+        app:backgroundTint="@color/green"
+        android:src="@drawable/ic_done_black_24dp"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        android:layout_margin="32dp"
+        app:fabSize="normal"
+        android:focusable="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cancel_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_gravity="bottom|start"
+        app:backgroundTint="@android:color/holo_red_light"
+        android:src="@drawable/ic_done_black_24dp"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        android:layout_margin="32dp"
+        app:fabSize="normal"
+        android:focusable="true" />
+</FrameLayout>
