@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+    
+    <style name="ToolbarColor"  parent="Widget.AppCompat.Toolbar">
+        <item name="windowNoTitle">true</item>
+        <item name="colorControlNormal">@color/white_50</item>
+    </style>
+</resources>
