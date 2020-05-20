@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.hardware.display.DisplayManager
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -19,8 +20,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import com.google.android.gms.vision.CameraSource
 import kotlinx.android.synthetic.main.camera_control_ui.*
+import kotlinx.android.synthetic.main.camera_control_ui.pin_preview
+import kotlinx.android.synthetic.main.fragment_process.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -41,6 +43,8 @@ class ProcessFragment : Fragment(), LifecycleOwner {
     private lateinit var cameraProvider: ProcessCameraProvider
     private lateinit var camera: Camera
     private lateinit var cameraInfo: CameraInfo
+    private lateinit var cameraControl: CameraControl
+    private var cameraSelector: CameraSelector? = null
     private var displayId: Int = -1
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
@@ -98,8 +102,8 @@ class ProcessFragment : Fragment(), LifecycleOwner {
             startCamera()
         }
         viewFinder.setOnClickListener {
-            Log.d(TAG, "Running autoFocus")
-            setAutoFocus()
+            cameraSelector?.let { it1 -> setAutoFocus(it1) }
+            tap_instruction.visibility = View.GONE
         }
 
         processFragmentBinding.cameraFlashSwitch.setOnClickListener{
@@ -109,15 +113,14 @@ class ProcessFragment : Fragment(), LifecycleOwner {
 
     private fun togleTorchState() {
         if (cameraInfo.torchState.value == TorchState.ON){
-            camera.cameraControl.enableTorch(false)
+            cameraControl.enableTorch(false)
         } else {
-            camera.cameraControl.enableTorch(true)
+            cameraControl.enableTorch(true)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i(TAG, "In onResume method KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
         // Make sure that all permissions are still present, since the
         // user could have removed them
         if (!PermissionFragment.hasPermissions(requireContext())){
@@ -183,7 +186,7 @@ class ProcessFragment : Fragment(), LifecycleOwner {
 
         Log.i(TAG, "screen rotation is $rotation")
 
-        val cameraSelector = CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
+        cameraSelector = CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener(Runnable {
@@ -213,43 +216,46 @@ class ProcessFragment : Fragment(), LifecycleOwner {
 
             try {
                 camera = cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer
+                    this, cameraSelector!!, preview, imageAnalyzer
                 )
-                setAutoFocus()
+                cameraControl = camera.cameraControl
+                //setAutoFocus(cameraSelector)
                 cameraInfo = camera.cameraInfo
                 //viewFinder.preferredImplementationMode = PreviewView.ImplementationMode.TEXTURE_VIEW
                 // Attach the viewfinder's surface provider to preview use case
                 preview?.setSurfaceProvider(viewFinder.createSurfaceProvider(cameraInfo))
-                setAutoFocus()
+                setAutoFocus(cameraSelector!!)
 
                 setTorchStateObserver()
             }catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failure")
             }
+            //setAutoFocus(cameraSelector)
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
-    private fun setAutoFocus() {
+    private fun setAutoFocus(cameraSelector: CameraSelector) {
+        val factory2 = viewFinder.createMeteringPointFactory (cameraSelector)
         Log.i(TAG ,"AutoFocus called ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         val factory = SurfaceOrientedMeteringPointFactory(viewFinder.width.toFloat(), viewFinder.height.toFloat())
-        val centerWidth = viewFinder.x + viewFinder.width.toFloat()/2f
-        val centerHeight = viewFinder.y + viewFinder.height.toFloat()/2f
-        val afpoint = 1.0f/12.0f
+        val centerWidth = pinTarget.x + pinTarget.width.toFloat()/2f
+        val centerHeight = pinTarget.y + pinTarget.height.toFloat()/2f
+        val afpoint = 1.0f/6.0f
         val aepoint = afpoint * 1.5f
-        val autoFocusPoint = factory.createPoint(centerWidth, centerHeight, afpoint)
-        val autoExposure = factory.createPoint(centerWidth, centerHeight, aepoint)
+        val autoFocusPoint = factory2.createPoint(centerWidth, centerHeight, afpoint)
+        val autoExposure = factory2.createPoint(centerWidth, centerHeight, aepoint)
         try {
-            camera.cameraControl.startFocusAndMetering(
+            cameraControl.startFocusAndMetering(
                 FocusMeteringAction.Builder(
                     autoFocusPoint,
                     FocusMeteringAction.FLAG_AF
                 ).addPoint(autoExposure, FocusMeteringAction.FLAG_AE)
-                    .disableAutoCancel()
                     .build()
             )
         } catch (e: CameraInfoUnavailableException) {
             Log.d(TAG, "Cannot access camera", e)
         }
+
 
     }
 

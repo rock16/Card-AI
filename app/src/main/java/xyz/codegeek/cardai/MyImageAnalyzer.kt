@@ -7,7 +7,6 @@ import androidx.camera.core.ImageProxy
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import org.greenrobot.eventbus.EventBus
-import xyz.codegeek.cardai.fragments.ProcessFragment
 import xyz.codegeek.cardai.util.VisionImage
 import xyz.codegeek.cardai.util.VisionImage.TAG
 import java.util.concurrent.TimeUnit
@@ -31,15 +30,14 @@ class MyImageAnalyzer: ImageAnalysis.Analyzer {
 
                 detector.processImage(myImage)
                     .addOnSuccessListener { firebaseVisionText ->
-                        Log.d(TAG, "Starting")
                         result = VisionImage.processResult(firebaseVisionText).toString()
-                        if (result.replace("-", "").replace(" ", "").matches(Regex("\\d{15}"))){
+                        if (result.replace("-", "").replace(" ", "").matches(Regex("\\d{15}|\\d{17}"))){
                             EventBus.getDefault().post(result)
                             Log.i(TAG, "Result is $result")
                             shouldAnalyze = false
+                            image.close()
                         }
 
-                        Log.d(TAG, "Finished")
                     }
                     .addOnFailureListener {
                         Log.i(TAG, "Error detecting text $it.message")

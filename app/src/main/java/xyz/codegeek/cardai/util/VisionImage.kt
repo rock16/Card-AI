@@ -37,7 +37,7 @@ object VisionImage {
 
     fun processResult(result: FirebaseVisionText): String? {
         val text = result.text
-        val pattern = "(\\d{5}(\\s|-)\\d{5}(\\s|-)\\d{5})".toRegex()
+        val pattern = "((\\d{5}(\\s|-)){2}\\d{5})|((\\d{4}(\\s|-)){3}\\d{5})".toRegex()
         return pattern.find(text)?.value
     }
 

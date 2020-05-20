@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Base.Theme.MaterialThemeBuilder">
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorSecondary">@color/green</item>
-        <item name="android:colorBackground">@color/black_900</item>
-        <item name="colorSurface">@color/black_800</item>
+        <item name="android:colorBackground">@color/green</item>
         <item name="colorError">@color/red_200</item>
         <item name="android:textColor">@color/white_50</item>
         <item name="colorBackgroundFloating">@color/green</item>
         <item name="colorAccent">@color/green</item>
     </style>
-    <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
+    <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+        <item name="android:actionBarStyle">@style/Widget.Transparent.ActionBar</item>
     </style>
 </resources>
