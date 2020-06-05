@@ -172,6 +172,7 @@ class ProcessFragment : Fragment(), LifecycleOwner {
             val callIntent = Intent(Intent.ACTION_CALL)
             callIntent.setData(Uri.parse(string))
             startActivity(callIntent)
+            requireActivity().finish()
         } catch (e: java.lang.Exception){
             Log.d(TAG, "Error loading pin", e)
         }
@@ -281,7 +282,7 @@ class ProcessFragment : Fragment(), LifecycleOwner {
 
     companion object {
 
-        private const val TAG = "CameraXBasic"
+        private const val TAG = "ProcessFragment"
 
         /** Helper function used to create a timestamped file
         private fun createFile(baseFolder: File, format: String, extension: String) =

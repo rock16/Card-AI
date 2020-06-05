@@ -3,12 +3,14 @@
     <style name="AppTheme" parent="Base.Theme.MaterialThemeBuilder">
         <item name="android:colorBackground">@color/green</item>
         <item name="colorError">@color/red_200</item>
-        <item name="android:textColor">@color/white_50</item>
+        <item name="actionMenuTextColor">@color/black_800</item>
+        <item name="android:actionMenuTextColor">@color/black_800</item>
         <item name="colorBackgroundFloating">@color/green</item>
         <item name="colorAccent">@color/green</item>
     </style>
     <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="android:actionBarStyle">@style/Widget.Transparent.ActionBar</item>
+        <item name="android:actionMenuTextColor">@color/black_800</item>
     </style>
 </resources>

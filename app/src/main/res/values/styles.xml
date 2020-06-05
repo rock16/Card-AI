@@ -1,8 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppStyle" parent="Theme.AppCompat.Light.DarkActionBar">
-
+    <style name="AppStyle" parent="Theme.AppCompat.Light.DarkActionBar"/>
+    
+    <style name="AppTheme.launcher" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/launcher_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,16 +15,25 @@
     <style name="ToolbarColor"  parent="Widget.AppCompat.Toolbar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="actionMenuTextColor">@color/black_800</item>
         <item name="colorControlNormal">@color/white_50</item>
     </style>
 
+    <!-- Toolbar style -->
     <style name="Widget.Transparent.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="backgroundColor">@android:color/transparent</item>
         <item name="background">@android:color/transparent</item>
+        <item name="actionMenuTextColor">@color/black_800</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Process Fragment style -->
+    <style name="Process" parent="AppTheme">
+        <item name="android:textColor">@color/white</item>
+    </style>
 
 </resources>

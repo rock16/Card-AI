@@ -37,4 +37,8 @@
             android:id="@+id/action_permissionFragment_to_processFragment2"
             app:destination="@id/processFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="xyz.codegeek.cardai.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
