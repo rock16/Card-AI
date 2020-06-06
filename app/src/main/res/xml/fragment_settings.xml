@@ -2,13 +2,25 @@
 <PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="notifications"
-        app:title="Enable message notifications"/>
+    <PreferenceCategory
+        app:title="Category 1">
+        <SwitchPreferenceCompat
+            app:key="key1"
+            app:title="Switch preference"
+            app:summary="Switch Summary"
+            app:defaultValue="false"/>
 
-    <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+        <EditTextPreference
+            app:key="key2"
+            app:title="EditText Preference"
+            app:summary="EditText Summary"
+            app:dialogMessage="Dialog Message"
+            app:defaultValue="Default Value"/>
+        <CheckBoxPreference
+            app:key="key3"
+            app:title="CheckBox Preference"
+            app:summary="CheckBox Summary"
+            app:defaultValue="true"/>
+    </PreferenceCategory>
 
 </PreferenceScreen>
